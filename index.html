@@ -2,166 +2,66 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8">
-  <title>آلة حاسبة عبدو</title>
+  <title>أثبت أنك إنسان</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      background-image: url('https://wallpaperaccess.com/full/1150062.jpg');
-      background-size: cover;
-      background-position: center;
-      margin: 0;
-      padding: 0;
+      background-color: #111;
+      color: white;
       display: flex;
       justify-content: center;
       align-items: center;
       height: 100vh;
-      position: relative;
-      overflow: hidden;
-      color: #fff;
-    }
-
-    .calculator {
-      background-color: rgba(0, 0, 0, 0.75);
-      padding: 20px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
-      z-index: 1;
-      text-align: center;
-      width: 320px;
-    }
-
-    .calculator h2 {
-      margin-top: 0;
-      color: #00ffcc;
-    }
-
-    .calculator h3 {
-      margin-bottom: 10px;
-      color: #ffff66;
-    }
-
-    input, select, button {
-      margin: 10px 0;
-      padding: 10px;
-      width: 100%;
-      font-size: 16px;
-      border-radius: 8px;
-      border: none;
-    }
-
-    input, select {
-      background-color: #222;
-      color: #fff;
-    }
-
-    button {
-      background-color: #00cc88;
-      color: white;
-      cursor: pointer;
-    }
-
-    button:hover {
-      background-color: #00aa77;
-    }
-
-    .clear-btn {
-      background-color: #cc0044;
-    }
-
-    .clear-btn:hover {
-      background-color: #aa0033;
-    }
-
-    .history {
-      margin-top: 20px;
-      text-align: right;
-      max-height: 150px;
-      overflow-y: auto;
-    }
-
-    .history ul {
-      list-style: none;
-      padding: 0;
       margin: 0;
     }
-
-    .history li {
-      border-bottom: 1px solid #555;
-      padding: 5px 0;
-      font-size: 14px;
+    .verify-box {
+      background: #222;
+      padding: 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+      text-align: center;
     }
-
-    .result {
+    input {
+      padding: 10px;
+      width: 80%;
+      border: none;
+      border-radius: 8px;
       margin-top: 15px;
-      font-weight: bold;
-      font-size: 18px;
-      color: #00ffcc;
+      font-size: 16px;
+    }
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      background-color: #00cc88;
+      color: white;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #00996b;
     }
   </style>
 </head>
 <body>
-  <div class="calculator">
-    <h3>عبدو كالي</h3>
-    <h2>آلة حاسبة بسيطة</h2>
-    <input type="number" id="num1" placeholder="الرقم الأول">
-    <select id="operation">
-      <option value="+">+</option>
-      <option value="-">-</option>
-      <option value="*">*</option>
-      <option value="/">/</option>
-    </select>
-    <input type="number" id="num2" placeholder="الرقم الثاني">
-    <button onclick="calculate()">احسب</button>
-    <button class="clear-btn" onclick="clearHistory()">مسح العمليات</button>
-
-    <div class="result" id="result"></div>
-    <div class="history" id="history"></div>
+  <div class="verify-box">
+    <h2>قبل ما تدخل</h2>
+    <p>أثبت أنك إنسان 😎</p>
+    <p>كم يساوي 4 + 5 ؟</p>
+    <input type="text" id="answer" placeholder="أدخل الإجابة">
+    <br>
+    <button onclick="checkAnswer()">تحقق</button>
   </div>
 
   <script>
-    let historyList = [];
-
-    function calculate() {
-      let a = parseFloat(document.getElementById('num1').value);
-      let b = parseFloat(document.getElementById('num2').value);
-      let op = document.getElementById('operation').value;
-      let result;
-
-      if (isNaN(a) || isNaN(b)) {
-        result = "رجاءً أدخل رقمين صحيحين.";
+    function checkAnswer() {
+      let input = document.getElementById('answer').value;
+      if (input.trim() === "9") {
+        window.location.href = "calc.html"; // اسم صفحة الآلة الحاسبة
       } else {
-        if (op === "+") result = a + b;
-        else if (op === "-") result = a - b;
-        else if (op === "*") result = a * b;
-        else if (op === "/") {
-          if (b === 0) result = "لا يمكن القسمة على صفر!";
-          else result = a / b;
-        } else {
-          result = "عملية غير مفهومة";
-        }
-
-        if (!isNaN(result)) {
-          historyList.push(`${a} ${op} ${b} = ${result}`);
-        }
+        alert("غلط! حاول ثاني.");
       }
-
-      document.getElementById('result').innerText = "النتيجة: " + result;
-      showHistory();
-    }
-
-    function showHistory() {
-      let html = "<strong>العمليات السابقة:</strong><ul>";
-      for (let item of historyList.slice(-5).reverse()) {
-        html += `<li>${item}</li>`;
-      }
-      html += "</ul>";
-      document.getElementById('history').innerHTML = html;
-    }
-
-    function clearHistory() {
-      historyList = [];
-      document.getElementById('history').innerHTML = "";
-      document.getElementById('result').innerText = "النتيجة: "
     }
   </script>
 </body>
